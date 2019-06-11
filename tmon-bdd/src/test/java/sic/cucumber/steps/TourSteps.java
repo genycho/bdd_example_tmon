@@ -103,7 +103,6 @@ public class TourSteps extends MySeleniumTestCase {
 				break;
 			case "해외호텔/숙박":
 				webElement = getXPathElement(TourUIElementsInfo.XPATH_OverSeaHotles_Menu);
-				arg1 = "데모용실패";//FIXME	데모용으로 일부러 실패하도록 설정
 				break;
 			case "해외패키지/자유":
 				webElement = getXPathElement(TourUIElementsInfo.XPATH_OverSeaPackage_Menu);
@@ -125,6 +124,7 @@ public class TourSteps extends MySeleniumTestCase {
 				break;
 			case "대명리조트":
 				webElement = getXPathElement(TourUIElementsInfo.XPATH_DaeMyung_Menu);
+				arg1 = "데모용실패";//FIXME	데모용으로 일부러 실패하도록 설정
 				break;
 			default:
 				throw new GUITestRunimeException("사전에 파악되지 않은 메뉴명입니다" + arg1);
