@@ -2,6 +2,7 @@ package sic.cucumber.steps;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.fail;
 
 import org.junit.After;
 import org.junit.Before;
@@ -71,7 +72,7 @@ public class TourSteps extends MySeleniumTestCase {
 		if(!arg1.equals(thisPageTitle)) {
 			takeErrorScreenshot(this.getClass().getName(), "페이지타이틀은_이다_"+arg1);
 		}
-		assertEquals("페이지타이틀이기대한값과다릅니다.에러스크린샷을참조해주세요-"+this.errorScreenShotFullPath,arg1, getPageTitle());
+		assertEquals("페이지타이틀이기대한값과다릅니다.다음 경로에 에러스크린샷을 참조해주세요. "+this.errorScreenShotFullPath,arg1, getPageTitle());
 	}
 
 	private WebElement getElement(String hint) {
@@ -102,6 +103,7 @@ public class TourSteps extends MySeleniumTestCase {
 				break;
 			case "해외호텔/숙박":
 				webElement = getXPathElement(TourUIElementsInfo.XPATH_OverSeaHotles_Menu);
+				arg1 = "데모용실패";//FIXME	데모용으로 일부러 실패하도록 설정
 				break;
 			case "해외패키지/자유":
 				webElement = getXPathElement(TourUIElementsInfo.XPATH_OverSeaPackage_Menu);
@@ -123,7 +125,6 @@ public class TourSteps extends MySeleniumTestCase {
 				break;
 			case "대명리조트":
 				webElement = getXPathElement(TourUIElementsInfo.XPATH_DaeMyung_Menu);
-				arg1 = "일부러실패";//FIXME	데모용으로 일부러 실패하도록 설정
 				break;
 			default:
 				throw new GUITestRunimeException("사전에 파악되지 않은 메뉴명입니다" + arg1);
@@ -134,8 +135,8 @@ public class TourSteps extends MySeleniumTestCase {
 		}else if(!arg1.contentEquals(actualMenuName)) {
 			takeErrorScreenshot(this.getClass().getName(),"좌측메뉴영역에_이_가_표시된다_"+arg1, webElement);
 		}
-		assertNotNull(arg1 + " UI 요소를 찾지 못하였습니다. 에러스크린샷을참고해주세요 - "+errorScreenShotFullPath, webElement);
-		assertEquals("기대한 메뉴명이 서로 다릅니다. 에러스크린샷을참고해주세요 - "+errorScreenShotFullPath,arg1, actualMenuName);
+		assertNotNull(arg1 + " UI 요소를 찾지 못하였습니다. 다음 경로에 에러스크린샷을 참조해주세요. "+errorScreenShotFullPath, webElement);
+		assertEquals("기대한 메뉴명이 서로 다릅니다. 다음 경로에 에러스크린샷을 참조해주세요.  "+errorScreenShotFullPath,arg1, actualMenuName);
 	}
 	
 	@Then("^하단에다음섹션들\"([^\"]*)\"이표시된다$")
@@ -166,6 +167,10 @@ public class TourSteps extends MySeleniumTestCase {
 		}
 		assertNotNull(arg1 + " UI 요소를 찾지 못하였습니다. 에러스크린샷을참고해주세요 - "+errorScreenShotFullPath, webElement);
 		
+//		if("여행특가".contentEquals(arg1)) {
+//			takeErrorScreenshot(this.getClass().getName(),"하단에다음섹션들_이표시된다",webElement);
+//			fail("데모를 위한강제실패, 에러스크린샷을 다음 경로에 찍습니다"+arg1+errorScreenShotFullPath);
+//		}
 	}
 	
 	public enum TourUIInfo{
