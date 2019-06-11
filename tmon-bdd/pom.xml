@@ -13,7 +13,7 @@
 		<org.slf4j.version>1.7.21</org.slf4j.version>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>${maven.compiler.source}</maven.compiler.target>
-		<junit.jupiter.version>5.4.2</junit.jupiter.version>
+		<!-- <junit.jupiter.version>5.4.2</junit.jupiter.version> -->
 		<selenium.java.version>3.141.59</selenium.java.version>
 	</properties>
 
@@ -50,6 +50,7 @@
 		</dependency>
 
 		<!-- junit5 -->
+		<!-- JUnit5에서 cucumber가 정상동작 안하여 JUnit4로 변경
 		<dependency>
 			<groupId>org.junit</groupId>
 			<artifactId>junit5-engine</artifactId>
@@ -61,8 +62,13 @@
 			<artifactId>junit-jupiter</artifactId>
 			<version>${junit.jupiter.version}</version>
 			<scope>test</scope>
-		</dependency>
+		</dependency> -->
 
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.12</version>
+		</dependency>
 		<!-- cucumber -->
 		<dependency>
 			<groupId>info.cukes</groupId>
@@ -109,11 +115,21 @@
 				<configuration>
 					<source>1.8</source>
 					<target>1.8</target>
+					<systemPropertyVariables>
+						<TARGET_BROWSER>chrome</TARGET_BROWSER>						
+					</systemPropertyVariables>
 				</configuration>
 			</plugin>
 			<plugin>
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>2.22.1</version>
+				<configuration>
+					<includes>
+						<!-- <include>src/test/java/**/BDDTestRunner.java</include> -->
+						<include>**/*TestRunner.java</include>
+					</includes>
+					<testFailureIgnore>true</testFailureIgnore>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>

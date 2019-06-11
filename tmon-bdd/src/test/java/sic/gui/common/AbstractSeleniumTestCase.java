@@ -243,6 +243,14 @@ public abstract class AbstractSeleniumTestCase {
 		return GUITestUtils.getXPathElement(driver, findKeyword);
 	}
 
+	//~ing
+//	public WebElement getUniqueAttrValue(String attrType, String findKeyword) {
+//		https://stackoverflow.com/questions/26304224/find-element-by-attribute
+//		webDriver.findElements(By.xpath("//*[@attribute='value']"))
+//		
+//		return GUITestUtils.getXPathElement(driver, findKeyword);
+//	}
+	
 	public WebElement getLinkTextElement(String findKeyword) {
 		return GUITestUtils.getLinkTextElement(driver, findKeyword);
 	}

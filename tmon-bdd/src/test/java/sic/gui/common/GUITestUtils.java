@@ -3,6 +3,7 @@ import static org.junit.Assert.fail;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
@@ -25,6 +26,15 @@ public class GUITestUtils {
 		return String.valueOf(millis);
 	}
 	
+	public static String getCurrentDateTime(String format) {
+		SimpleDateFormat format1 = new SimpleDateFormat (format);
+		return format1.format (System.currentTimeMillis());
+	}
+	
+	public static String getCurrentDateTime() {
+		return getCurrentDateTime("yyyyMMddHHmmss");
+	}
+	
 	public static void waitFor(long miliseconds) {
 		try {
 			Thread.sleep(miliseconds);
@@ -33,7 +43,16 @@ public class GUITestUtils {
 		}
 	}
 	
+	@Deprecated	//하이라이트 가는 걸로 쓰세요
 	public static void errorScreenShot(WebDriver driver, String imgAbsPath) throws IOException {
+		File scrFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
+		FileUtils.copyFile(scrFile, new File(imgAbsPath));
+	}
+	
+	public static void errorScreenShotWithHighlight(WebDriver driver, WebElement webElement, String imgAbsPath) throws IOException {
+		JavascriptExecutor jse = (JavascriptExecutor) driver;
+		jse.executeScript("arguments[0].style.border='2px solid red'", webElement);
+		waitFor(1000);
 		File scrFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
 		FileUtils.copyFile(scrFile, new File(imgAbsPath));
 	}
